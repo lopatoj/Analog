@@ -18,6 +18,11 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Resources\" />
-    <Folder Include="ViewViewModels\Main\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="ViewViewModels\Main\MainView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
