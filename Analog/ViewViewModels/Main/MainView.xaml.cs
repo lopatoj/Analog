@@ -15,6 +15,7 @@ namespace Analog.ViewViewModels.Main
         public MainView()
         {
             InitializeComponent();
+            BindingContext = new MainViewModel();
         }
     }
 }
