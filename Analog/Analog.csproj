@@ -18,10 +18,12 @@
 
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="ViewViewModels\Camera\" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="ViewViewModels\Camera\CameraView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="ViewViewModels\Main\MainView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
