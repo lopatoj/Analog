@@ -5,6 +5,12 @@
              Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout Margin="10">
+            <Label Text="Welcome to Clock Scanner!"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"/>
+            
             <Button Text="Open Camera"
                     FontAttributes="Bold"
                     TextColor="White"
