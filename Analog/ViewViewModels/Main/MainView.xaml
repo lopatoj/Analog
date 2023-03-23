@@ -5,7 +5,7 @@
              Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout>
-            
+            <Label>Hello World</Label>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
