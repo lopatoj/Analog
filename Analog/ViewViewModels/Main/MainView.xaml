@@ -4,9 +4,23 @@
              x:Class="Analog.ViewViewModels.Main.MainView"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label
-                Text="HELLO WORLD"/>
+        <StackLayout Margin="10">
+            <Button Text="Open Camera"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    BackgroundColor="#3A3B3C"
+                    FontSize="18"
+                    CornerRadius="5"
+                    Command="{Binding OnCameraClicked}"/>
+
+            <Button Text="Open Gallery"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    BackgroundColor="#3A3B3C"
+                    FontSize="18"
+                    CornerRadius="5"
+                    Command="{Binding OnGalleryClicked}"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

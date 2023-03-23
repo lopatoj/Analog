@@ -4,5 +4,11 @@
              x:Class="Analog.App">
     <Application.Resources>
         
+        <Color x:Key="primary-back-title-color">#000</Color>
+        <Color x:Key="primary-background-color">#000</Color>
+        <Style ApplyToDerivedTypes="true" TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="{StaticResource Key=primary-back-title-color}"></Setter>
+            <Setter Property="BackgroundColor" Value="{StaticResource Key=primary-background-color}"></Setter>
+        </Style>
     </Application.Resources>
 </Application>
