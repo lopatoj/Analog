@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using MyFirstProject.Models;
-using Xamarin.Forms;
 
 namespace MyFirstProject.ViewModels
 {
