@@ -9,7 +9,7 @@
                    FontSize="Large"
                    FontAttributes="Bold"
                    HorizontalTextAlignment="Center"
-                   TextColor="White"/>
+                   TextColor="Black"/>
             
             <Button Text="Open Camera"
                     FontAttributes="Bold"
