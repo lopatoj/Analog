@@ -1,4 +1,5 @@
 ﻿using Analog.Models;
+using Analog.ViewViewModels.Camera;
 using MyFirstProject.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -24,14 +25,14 @@ namespace Analog.ViewViewModels.Main
         private async void OnCameraClickedAsync(Object obj)
         {
 
-            //await Application.Current.MainPage.Navigation.PushAsync(new LayoutView());
+            await Application.Current.MainPage.Navigation.PushAsync(new CameraView());
 
         }
 
         private async void OnGalleryClickedAsync(Object obj)
         {
 
-            //await Application.Current.MainPage.Navigation.PushAsync(new LayoutView());
+            //await Application.Current.MainPage.Navigation.PushAsync();
 
         }
     }
