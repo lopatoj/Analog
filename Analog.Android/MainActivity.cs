@@ -19,6 +19,8 @@ namespace Analog.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
+            // Next line makes a pop up request for camera
+
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.Camera) != (int)Permission.Granted || ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) != (int)Permission.Granted)
             {
                 RequestPermissions(new string[] { Manifest.Permission.Camera, Manifest.Permission.AccessFineLocation }, 0);
