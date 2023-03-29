@@ -12,8 +12,7 @@
 
             <xct:CameraView
                 x:Name="cameraView"
-                CaptureMode="Video"
-                FlashMode="On"
+                CaptureMode="Photo"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand" />
             
