@@ -6,6 +6,6 @@ namespace Analog.Models
 {
     public static class Titles
     {
-        public static string MainTitle { get; set; } = "Main Page";
+        public static string MainTitle { get; set; } = "Analog";
     }
 }

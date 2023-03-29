@@ -1,17 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="Analog.ViewViewModels.Main.MainView"
              Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout Margin="10">
-            <Label Text="Welcome to Clock Scanner!"
-                   FontSize="Large"
-                   FontAttributes="Bold"
-                   HorizontalTextAlignment="Center"
-                   TextColor="Black"/>
-            
-            <Button Text="Open Camera"
+
+            <xct:CameraView
+                x:Name="cameraView"
+                CaptureMode="Photo"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand" />
+
+            <Button Text="Scan from Camera"
                     FontAttributes="Bold"
                     TextColor="White"
                     BackgroundColor="#3A3B3C"
@@ -19,7 +21,7 @@
                     CornerRadius="5"
                     Command="{Binding OnCameraClicked}"/>
 
-            <Button Text="Open Gallery"
+            <Button Text="Scan from Gallery"
                     FontAttributes="Bold"
                     TextColor="White"
                     BackgroundColor="#3A3B3C"
