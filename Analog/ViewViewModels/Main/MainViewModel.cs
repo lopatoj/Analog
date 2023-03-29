@@ -24,14 +24,10 @@ namespace Analog.ViewViewModels.Main
         private async void OnCameraClickedAsync(Object obj)
         {
 
-            await Application.Current.MainPage.Navigation.PushAsync(new MainView());
-
         }
 
         private async void OnGalleryClickedAsync(Object obj)
         {
-
-            //await Application.Current.MainPage.Navigation.PushAsync();
 
         }
     }
