@@ -1,4 +1,5 @@
-﻿using Analog.ViewViewModels.Main;
+﻿using Analog.ViewViewModels.Camera;
+using Analog.ViewViewModels.Main;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,7 +12,7 @@ namespace Analog
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainView());
+            MainPage = new NavigationPage(new CameraView());
         }
 
         protected override void OnStart()
