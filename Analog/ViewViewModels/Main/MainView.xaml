@@ -4,7 +4,9 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="Analog.ViewViewModels.Main.MainView"
              Title="{Binding Title}">
+    
     <ContentPage.Content>
+        
         <StackLayout Margin="10">
 
             <xct:CameraView
@@ -30,5 +32,7 @@
                     Command="{Binding OnGalleryClicked}"/>
 
         </StackLayout>
+        
     </ContentPage.Content>
+    
 </ContentPage>
