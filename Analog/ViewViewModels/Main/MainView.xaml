@@ -13,7 +13,8 @@
                 x:Name="cameraView"
                 CaptureMode="Photo"
                 HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand" />
+                VerticalOptions="FillAndExpand" 
+                MediaCaptured="cameraView_MediaCaptured"/>
 
             <Button Text="Scan from Camera"
                     FontAttributes="Bold"
@@ -21,6 +22,7 @@
                     BackgroundColor="#3A3B3C"
                     FontSize="18"
                     CornerRadius="5"
+                    Clicked="Camera_Button_Clicked"
                     Command="{Binding OnCameraClicked}"/>
 
             <Button Text="Scan from Gallery"
@@ -29,6 +31,7 @@
                     BackgroundColor="#3A3B3C"
                     FontSize="18"
                     CornerRadius="5"
+                    Clicked="On_Gallery_Button_Clicked"
                     Command="{Binding OnGalleryClicked}"/>
 
         </StackLayout>
