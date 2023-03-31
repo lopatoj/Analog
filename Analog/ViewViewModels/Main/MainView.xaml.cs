@@ -23,43 +23,35 @@ namespace Analog.ViewViewModels.Main
             VM = (MainViewModel)BindingContext;
         }
 
-        private void CaptureImage(object Sender, EventArgs e)
+        private void CaptureImage(object sender, EventArgs e)
         {
             cameraView.Shutter();
         }
 
-        private void MediaCaptured(object Sender, MediaCapturedEventArgs e)
+        private void MediaCaptured(object sender, MediaCapturedEventArgs e)
         {
+            (sender as Button).IsEnabled = false;
+
             VM.imgAsBytes = e.ImageData;
             _ = VM.RunInferenceAsync();
-        }
 
-        private void Camera_Button_Clicked(object sender, EventArgs e)
-        {
-            cameraView.Shutter();
-            
-        }
-
-        private void cameraView_MediaCaptured(object sender, Xamarin.CommunityToolkit.UI.Views.MediaCapturedEventArgs e)
-        {
-            Console.WriteLine("done");
-            ImageSource newimg = e.Image;
-            
+            (sender as Button).IsEnabled = true;
         }
 
         private async void On_Gallery_Button_Clicked(object sender, EventArgs e)
         {
-            ImageSource image = null;
             (sender as Button).IsEnabled = false;
+
+            var assembly = GetType().Assembly;
 
             Stream stream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
             if (stream != null)
             {
-                image = ImageSource.FromStream(() => stream);
+                VM.imgAsBytes = null; // needs updating
+                _ = VM.RunInferenceAsync();
             }
 
             (sender as Button).IsEnabled = true;
-
         }
     }
 }
