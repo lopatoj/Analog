@@ -12,16 +12,18 @@
             <xct:CameraView
                 x:Name="cameraView"
                 CaptureMode="Photo"
+                MediaCaptured="MediaCaptured"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand" />
 
-            <Button Text="Scan from Camera"
+            <Button Text="Scan"
+                    x:Name="scanBtn"
                     FontAttributes="Bold"
                     TextColor="White"
                     BackgroundColor="#3A3B3C"
                     FontSize="18"
                     CornerRadius="5"
-                    Command="{Binding OnCameraClicked}"/>
+                    Clicked="ScanImage"/>
 
             <Button Text="Scan from Gallery"
                     FontAttributes="Bold"
