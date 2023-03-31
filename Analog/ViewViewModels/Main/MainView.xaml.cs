@@ -29,6 +29,7 @@ namespace Analog.ViewViewModels.Main
         private void MediaCaptured(object Sender, MediaCapturedEventArgs e)
         {
             VM.imgAsBytes = e.ImageData;
+            _ = VM.RunInferenceAsync();
         }
     }
 }
