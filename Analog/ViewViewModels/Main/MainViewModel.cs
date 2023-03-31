@@ -43,7 +43,7 @@ namespace Analog.ViewViewModels.Main
 
         private async void OnCameraClickedAsync(Object obj)
         {
-
+            
         }
 
         private async void OnGalleryClickedAsync(Object obj)
