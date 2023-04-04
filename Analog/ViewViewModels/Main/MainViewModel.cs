@@ -27,13 +27,12 @@ namespace Analog.ViewViewModels.Main
         {
             try
             {
-                var sampleImage = imgAsBytes;
-                var result = await _clockScan.GetClassificationAsync(sampleImage);
+                var result = await _clockScan.GetClassificationAsync(imgAsBytes);
                 await Application.Current.MainPage.DisplayAlert("Result", result, "OK");
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.StackTrace, "OK");
             }
         }
     }
