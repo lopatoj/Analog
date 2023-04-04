@@ -12,8 +12,6 @@ namespace Analog.ViewViewModels.Main
 {
     class MainViewModel : BaseViewModel
     {
-        public ICommand OnCameraClicked { get; set; }
-        public ICommand OnGalleryClicked { get; set; }
         public Byte[] imgAsBytes;
 
         private ClockScan _clockScan;
@@ -21,9 +19,6 @@ namespace Analog.ViewViewModels.Main
         public MainViewModel()
         {
             Title = Titles.MainTitle;
-
-            OnCameraClicked = new Command(OnCameraClickedAsync);
-            OnGalleryClicked = new Command(OnGalleryClickedAsync);
 
             _clockScan = new ClockScan();
         }
@@ -40,16 +35,6 @@ namespace Analog.ViewViewModels.Main
             {
                 await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
-        }
-
-        private async void OnCameraClickedAsync(Object obj)
-        {
-            
-        }
-
-        private async void OnGalleryClickedAsync(Object obj)
-        {
-
         }
     }
 }
