@@ -30,12 +30,12 @@ namespace Analog.ViewViewModels.Main
 
         private void MediaCaptured(object sender, MediaCapturedEventArgs e)
         {
-            (sender as Button).IsEnabled = false;
+            //(sender as Button).IsEnabled = false;
 
             VM.imgAsBytes = e.ImageData;
             _ = VM.RunInferenceAsync();
 
-            (sender as Button).IsEnabled = true;
+            //(sender as Button).IsEnabled = true;
         }
 
         private async void On_Gallery_Button_Clicked(object sender, EventArgs e)
