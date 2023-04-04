@@ -160,8 +160,7 @@ namespace Analog.Models
             // https://github.com/onnx/models/tree/master/vision/classification/mobilenet#postprocessing
             var scores = output.AsTensor<float>().ToList();
             var highestScore = scores.Max();
-            var highestScoreIndex = scores.IndexOf(highestScore);
-            var time = "lol";
+            var time = Math.Floor(highestScore / 60) + ":" + highestScore % 60; // returns time as string in format: hours:minutes
 
             return time;
         }
