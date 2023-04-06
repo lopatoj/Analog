@@ -10,22 +10,21 @@ namespace Analog.Models
     public class ClockScan
     {
         byte[] _model;
-        InferenceSession _session;
 
         public async Task<string> GetClassificationAsync(byte[] image)
         {
             var assembly = GetType().Assembly;
 
             // Get model
-            var modelStream = assembly.GetManifestResourceStream("analog.onnx"); // Model location
+            var modelStream = assembly.GetManifestResourceStream("Analog.Model.analog.onnx"); // Model location
             var modelMemoryStream = new MemoryStream();
 
             modelStream.CopyTo(modelMemoryStream);
             _model = modelMemoryStream.ToArray();
 
-            Console.WriteLine(_model);
+            //Console.WriteLine(_model);
 
-            // _session = new InferenceSession(_model);
+            var _session = new InferenceSession("analog.onnx");
 
             // Create Tensor model input
             // The model expects input to be in the shape of (N x 3 x H x W) i.e.
