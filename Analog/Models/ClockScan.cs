@@ -17,7 +17,7 @@ namespace Analog.Models
             var assembly = GetType().Assembly;
 
             // Get model
-            var modelStream = assembly.GetManifestResourceStream("Analog.Resources.analog.onnx"); // Model location
+            var modelStream = assembly.GetManifestResourceStream("analog.onnx"); // Model location
             var modelMemoryStream = new MemoryStream();
 
             modelStream.CopyTo(modelMemoryStream);
