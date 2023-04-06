@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
-using Xamarin.Forms;
+using SkiaSharp;
 
 namespace Analog.Models
 {
@@ -19,14 +17,15 @@ namespace Analog.Models
             var assembly = GetType().Assembly;
 
             // Get model
-            using var modelStream = assembly.GetManifestResourceStream("Analog.Resources.analog.onnx"); // Model location
-            using var modelMemoryStream = new MemoryStream();
+            var modelStream = assembly.GetManifestResourceStream("Analog.Resources.analog.onnx"); // Model location
+            var modelMemoryStream = new MemoryStream();
 
             modelStream.CopyTo(modelMemoryStream);
             _model = modelMemoryStream.ToArray();
-            _session = new InferenceSession(_model);
-            
-            // using Image<Rgb24> img = Image.Load()
+
+            Console.WriteLine(_model);
+
+            // _session = new InferenceSession(_model);
 
             // Create Tensor model input
             // The model expects input to be in the shape of (N x 3 x H x W) i.e.
@@ -47,7 +46,7 @@ namespace Analog.Models
 
             // var output = results.FirstOrDefault(i => i.Name == ModelOutputName);
 
-            
+
 
             // Postprocess output (get highest score and corresponding label)
             // https://github.com/onnx/models/tree/master/vision/classification/mobilenet#postprocessing
@@ -55,6 +54,8 @@ namespace Analog.Models
             // var scores = output.AsTensor<float>().ToList();
             // var highestScore = scores.Max();
             // var time = Math.Floor(highestScore / 60) + ":" + highestScore % 60; // returns time as string in format: hours:minutes
+
+            _session.Dispose();
 
             return "";
         }
