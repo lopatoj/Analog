@@ -15,11 +15,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Models\analog_stn.onnx" />
     <None Remove="Resources\analog.onnx" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Models\analog.onnx" />
+    <EmbeddedResource Include="Models\analog_stn.onnx" />
   </ItemGroup>
 
   <ItemGroup>
