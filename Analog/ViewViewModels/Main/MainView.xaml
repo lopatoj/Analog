@@ -13,7 +13,7 @@
                 x:Name="cameraView"
                 CaptureMode="Photo"
                 MediaCaptured="MediaCaptured"
-                HorizontalOptions="Fill"
+                HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand" />
 
             <Button Text="Scan"
