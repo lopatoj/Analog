@@ -31,7 +31,7 @@ namespace Analog.ViewViewModels.Main
         private void MediaCaptured(object sender, MediaCapturedEventArgs e)
         {
             VM.imgAsBytes = e.ImageData;
-            _ = VM.RunInferenceAsync();
+            VM.RunInferenceAsync();
         }
 
         private async void On_Gallery_Button_Clicked(object sender, EventArgs e)
@@ -44,7 +44,7 @@ namespace Analog.ViewViewModels.Main
             if (stream != null)
             {
                 VM.imgAsBytes = null; // needs updating
-                _ = VM.RunInferenceAsync();
+                VM.RunInferenceAsync();
             }
 
             (sender as Button).IsEnabled = true;

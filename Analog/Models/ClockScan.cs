@@ -16,22 +16,23 @@ namespace Analog.Models
             var assembly = GetType().Assembly;
 
             // Get model
-            var modelStream = assembly.GetManifestResourceStream("Analog.Model.analog.onnx"); // Model location
+            var modelStream = assembly.GetManifestResourceStream("analog.onnx"); // Model location
             var modelMemoryStream = new MemoryStream();
 
             modelStream.CopyTo(modelMemoryStream);
             _model = modelMemoryStream.ToArray();
 
             //Console.WriteLine(_model);
+            string modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Models", "analog.onnx");
+            var _session = new InferenceSession(modelPath);
 
-            var _session = new InferenceSession("analog.onnx");
 
             // Create Tensor model input
             // The model expects input to be in the shape of (N x 3 x H x W) i.e.
             // mini-batches (where N is the batch size) of 3-channel RGB images with H and W of 224
             // https://onnxruntime.ai/docs/api/csharp-api#systemnumericstensor
 
-            // var input = new DenseTensor<float>(channelData, new[] { DimBatchSize, DimNumberOfChannels, ImageSizeX, ImageSizeY });
+            //var input = new DenseTensor<float>(channelData, new[] { DimBatchSize, DimNumberOfChannels, ImageSizeX, ImageSizeY });
 
             // Run inferencing
             // https://onnxruntime.ai/docs/api/csharp-api#methods-1

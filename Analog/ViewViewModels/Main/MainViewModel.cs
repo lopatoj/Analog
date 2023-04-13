@@ -12,7 +12,7 @@ namespace Analog.ViewViewModels.Main
 {
     class MainViewModel : BaseViewModel
     {
-        public Byte[] imgAsBytes;
+        public byte[] imgAsBytes;
 
         private ClockScan _clockScan;
 
