@@ -18,7 +18,7 @@ namespace Analog.Models
             // mini-batches (where N is the batch size) of 3-channel RGB images with H and W of 224
             // https://onnxruntime.ai/docs/api/csharp-api#systemnumericstensor
 
-            // var input = new DenseTensor<float>(channelData, new[] { DimBatchSize, DimNumberOfChannels, ImageSizeX, ImageSizeY });
+            //var input = new DenseTensor<float>(channelData, new[] { DimBatchSize, DimNumberOfChannels, ImageSizeX, ImageSizeY });
 
             // Run inferencing
             // https://onnxruntime.ai/docs/api/csharp-api#methods-1
