@@ -15,17 +15,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Models\analog_stn.onnx" />
-    <None Remove="Resources\analog.onnx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Models\analog.onnx" />
-    <EmbeddedResource Include="Models\analog_stn.onnx" />
+    <EmbeddedResource Include="Resources\analog.onnx" />
+    <EmbeddedResource Include="Resources\analog_stn.onnx" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.14.1" />
+    <PackageReference Include="Microsoft.ML.OnnxTransformer" Version="2.0.1" />
     <PackageReference Include="SkiaSharp" Version="2.88.3" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.5" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2578" />
@@ -36,9 +32,5 @@
     <EmbeddedResource Update="ViewViewModels\Main\MainView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\" />
   </ItemGroup>
 </Project>

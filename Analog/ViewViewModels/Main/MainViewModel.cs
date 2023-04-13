@@ -12,7 +12,7 @@ namespace Analog.ViewViewModels.Main
 {
     class MainViewModel : BaseViewModel
     {
-        public Byte[] imgAsBytes;
+        public byte[] imgAsBytes;
 
         private ClockScan _clockScan;
 
@@ -25,15 +25,8 @@ namespace Analog.ViewViewModels.Main
 
         public async Task RunInferenceAsync()
         {
-            try
-            {
-                var result = await _clockScan.GetClassificationAsync(imgAsBytes);
-                await Application.Current.MainPage.DisplayAlert("Result", result, "OK");
-            }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
-            }
+            string result = await _clockScan.GetClassificationAsync(imgAsBytes);
+            await Application.Current.MainPage.DisplayAlert("Result", result, "OK");
         }
     }
 }
