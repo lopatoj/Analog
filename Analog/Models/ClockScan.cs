@@ -11,7 +11,7 @@ namespace Analog.Models
         public async Task<string> GetClassificationAsync(byte[] image)
         {
             var model = LoadModelFromEmbeddedResource("Analog.Resources.analog.onnx");
-            var session = new InferenceSession("../Resources/analog.onnx");
+            var session = new InferenceSession(model);
 
             // Create Tensor model input
             // The model expects input to be in the shape of (N x 3 x H x W) i.e.
