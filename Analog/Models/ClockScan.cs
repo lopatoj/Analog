@@ -3,36 +3,22 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
-using SkiaSharp;
 
 namespace Analog.Models
 {
     public class ClockScan
     {
-        byte[] _model;
-
         public async Task<string> GetClassificationAsync(byte[] image)
         {
-            var assembly = GetType().Assembly;
-
-            // Get model
-            var modelStream = assembly.GetManifestResourceStream("analog.onnx"); // Model location
-            var modelMemoryStream = new MemoryStream();
-
-            modelStream.CopyTo(modelMemoryStream);
-            _model = modelMemoryStream.ToArray();
-
-            //Console.WriteLine(_model);
-            string modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Models", "analog.onnx");
-            var _session = new InferenceSession(modelPath);
-
+            var model = LoadModelFromEmbeddedResource("Analog.Resources.analog.onnx");
+            var session = new InferenceSession("../Resources/analog.onnx");
 
             // Create Tensor model input
             // The model expects input to be in the shape of (N x 3 x H x W) i.e.
             // mini-batches (where N is the batch size) of 3-channel RGB images with H and W of 224
             // https://onnxruntime.ai/docs/api/csharp-api#systemnumericstensor
 
-            //var input = new DenseTensor<float>(channelData, new[] { DimBatchSize, DimNumberOfChannels, ImageSizeX, ImageSizeY });
+            // var input = new DenseTensor<float>(channelData, new[] { DimBatchSize, DimNumberOfChannels, ImageSizeX, ImageSizeY });
 
             // Run inferencing
             // https://onnxruntime.ai/docs/api/csharp-api#methods-1
@@ -55,9 +41,26 @@ namespace Analog.Models
             // var highestScore = scores.Max();
             // var time = Math.Floor(highestScore / 60) + ":" + highestScore % 60; // returns time as string in format: hours:minutes
 
-            _session.Dispose();
+            //session.Dispose();
 
             return "";
+        }
+
+        byte[] LoadModelFromEmbeddedResource(string path)
+        {
+            var assembly = typeof(ClockScan).Assembly;
+            byte[] model = null;
+
+            using (Stream stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.{path}"))
+            {
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    stream.CopyTo(memoryStream);
+                    model = memoryStream.ToArray();
+                }
+            }
+
+            return model;
         }
     }
 }
