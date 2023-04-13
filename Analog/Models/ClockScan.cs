@@ -24,7 +24,7 @@ namespace Analog.Models
 
             //Console.WriteLine(_model);
 
-            var _session = new InferenceSession("analog.onnx");
+            var _session = new InferenceSession("Analog.Model.analog.onnx");
 
             // Create Tensor model input
             // The model expects input to be in the shape of (N x 3 x H x W) i.e.
