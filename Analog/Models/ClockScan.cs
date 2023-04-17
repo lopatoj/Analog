@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.ML.OnnxRuntime;
-using Microsoft.ML.OnnxRuntime.Tensors;
+using System.Numerics.Tensors;
 
 namespace Analog.Models
 {
@@ -10,8 +10,14 @@ namespace Analog.Models
     {
         public async Task<string> GetClassificationAsync(byte[] image)
         {
-            var model = LoadModelFromEmbeddedResource("Analog.Resources.analog.onnx");
-            var session = new InferenceSession("../Resources/analog.onnx");
+            var assembly = GetType().Assembly;
+            using var modelStream = assembly.GetManifestResourceStream("Analog.Resources.analog.onnx");
+            using var modelMemoryStream = new MemoryStream();
+
+            modelStream.CopyTo(modelMemoryStream);
+            byte[] _model = modelMemoryStream.ToArray();
+            InferenceSession _session = new InferenceSession(_model);
+
 
             // Create Tensor model input
             // The model expects input to be in the shape of (N x 3 x H x W) i.e.

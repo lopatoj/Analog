@@ -25,8 +25,16 @@ namespace Analog.ViewViewModels.Main
 
         public async Task RunInferenceAsync()
         {
-            string result = await _clockScan.GetClassificationAsync(imgAsBytes);
-            await Application.Current.MainPage.DisplayAlert("Result", result, "OK");
+            try
+            {
+                string result = await _clockScan.GetClassificationAsync(imgAsBytes);
+                await Application.Current.MainPage.DisplayAlert("Result", result, "OK");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
         }
     }
 }
