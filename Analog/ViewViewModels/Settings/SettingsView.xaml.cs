@@ -15,6 +15,7 @@ namespace Analog.ViewViewModels.Settings
         public SettingsView()
         {
             InitializeComponent();
+            this.BindingContext = new SettingsViewModel();
         }
     }
 }
