@@ -64,6 +64,9 @@
     <PackageReference Include="Microsoft.ML.OnnxTransformer">
       <Version>2.0.1</Version>
     </PackageReference>
+    <PackageReference Include="NETStandard.Library">
+      <Version>2.0.3</Version>
+    </PackageReference>
     <PackageReference Include="SkiaSharp">
       <Version>2.88.3</Version>
     </PackageReference>
