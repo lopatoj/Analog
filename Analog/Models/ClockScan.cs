@@ -13,37 +13,22 @@ namespace Analog.Models
             var model = LoadModelFromEmbeddedResource("Analog.Resources.analog.onnx");
             var session = new InferenceSession(model);
 
-            // Create Tensor model input
-            // The model expects input to be in the shape of (N x 3 x H x W) i.e.
-            // mini-batches (where N is the batch size) of 3-channel RGB images with H and W of 224
-            // https://onnxruntime.ai/docs/api/csharp-api#systemnumericstensor
+            // Reformat image to ResNet50 input
+            var container = new DenseTensor<float>(new[] { 1, 3, 224, 224 });
+            var imageTensor = new DenseTensor<float>(image, new[] { 1, 3, 224, 224 });
+            container[0, 0, 0, 0] = imageTensor[0, 2, 0, 0];
+            container[0, 1, 0, 0] = imageTensor[0, 1, 0, 0];
+            container[0, 2, 0, 0] = imageTensor[0, 0, 0, 0];
+            
+            // Run model
+            var inputs = new NamedOnnxValue[] { NamedOnnxValue.CreateFromTensor("data", container) };
+            using IDisposableReadOnlyCollection<DisposableNamedOnnxValue> results = session.Run(inputs);
 
-            //var input = new DenseTensor<float>(channelData, new[] { DimBatchSize, DimNumberOfChannels, ImageSizeX, ImageSizeY });
+            // Get results
+            var output = results.First().AsEnumerable<float>();
+            var result = output.Max() > 0.5 ? "analog" : "digital";
 
-            // Run inferencing
-            // https://onnxruntime.ai/docs/api/csharp-api#methods-1
-            // https://onnxruntime.ai/docs/api/csharp-api#namedonnxvalue
-
-            // using var results = _session.Run(new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor(ModelInputName, input) });
-
-            // Resolve model output
-            // https://github.com/onnx/models/tree/master/vision/classification/mobilenet#output
-            // https://onnxruntime.ai/docs/api/csharp-api#disposablenamedonnxvalue
-
-            // var output = results.FirstOrDefault(i => i.Name == ModelOutputName);
-
-
-
-            // Postprocess output (get highest score and corresponding label)
-            // https://github.com/onnx/models/tree/master/vision/classification/mobilenet#postprocessing
-
-            // var scores = output.AsTensor<float>().ToList();
-            // var highestScore = scores.Max();
-            // var time = Math.Floor(highestScore / 60) + ":" + highestScore % 60; // returns time as string in format: hours:minutes
-
-            //session.Dispose();
-
-            return "";
+            return result;
         }
 
         byte[] LoadModelFromEmbeddedResource(string path)
