@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.ML.OnnxRuntime;
 using System.Numerics.Tensors;
+using SixLabors.ImageSharp;
 
 namespace Analog.Models
 {
