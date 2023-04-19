@@ -33,13 +33,13 @@
                     CornerRadius="5"
                     Clicked="On_Gallery_Button_Clicked" />
 
-            <Button Text="Setting"
+            <!--<Button Text="Setting"
                     FontAttributes="Bold"
                     TextColor="White"
                     BackgroundColor="Black"
                     FontSize="18"
                     CornerRadius="5"
-                    Clicked="On_Setting_Button_Clicked" />
+                    Clicked="On_Setting_Button_Clicked" />-->
 
         </StackLayout>
         
