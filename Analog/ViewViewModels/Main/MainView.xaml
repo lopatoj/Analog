@@ -33,13 +33,12 @@
                     CornerRadius="5"
                     Clicked="On_Gallery_Button_Clicked" />
 
-            <!--<Button Text="Setting"
-                    FontAttributes="Bold"
+            <Button Text="Setting"
+                    Grid.Column="0"
+                    Grid.Row="0"
                     TextColor="White"
                     BackgroundColor="Black"
-                    FontSize="18"
-                    CornerRadius="5"
-                    Clicked="On_Setting_Button_Clicked" />-->
+                    Command="{Binding OnSettingsClicked}"/>
 
         </StackLayout>
         
