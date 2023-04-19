@@ -1,4 +1,5 @@
 ﻿using Analog.Models;
+using Analog.ViewViewModels.Settings;
 using MyFirstProject.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,15 @@ namespace Analog.ViewViewModels.Main
 
         private ClockScan _clockScan;
 
+        public ICommand OnSettingsClicked { get; set; }
+
         public MainViewModel()
         {
             Title = Titles.MainTitle;
 
             _clockScan = new ClockScan();
+
+            OnSettingsClicked = new Command(OnSettingsClickedAsync);
         }
 
         public async Task RunInferenceAsync()
@@ -35,6 +40,11 @@ namespace Analog.ViewViewModels.Main
                 Console.WriteLine(ex.ToString());
             }
 
+        }
+
+        public async void OnSettingsClickedAsync(object obj) 
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new SettingsView());
         }
     }
 }

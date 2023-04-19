@@ -34,11 +34,11 @@
                     Clicked="On_Gallery_Button_Clicked" />
 
             <Button Text="Setting"
-                    FontAttributes="Bold"
+                    Grid.Column="0"
+                    Grid.Row="0"
                     TextColor="White"
                     BackgroundColor="Black"
-                    FontSize="18"
-                    CornerRadius="5" />
+                    Command="{Binding OnSettingsClicked}"/>
 
         </StackLayout>
         
