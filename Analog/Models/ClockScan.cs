@@ -25,6 +25,13 @@ namespace Analog.Models
             byte[] _model = modelMemoryStream.ToArray();
             InferenceSession _session = new InferenceSession(_model);
 
+            using var modelStream_stn = assembly.GetManifestResourceStream("Analog.Resources.analog_stn.onnx");
+            using var modelMemoryStream_stn = new MemoryStream();
+
+            modelStream_stn.CopyTo(modelMemoryStream_stn);
+            byte[] _model_stn = modelMemoryStream_stn.ToArray();
+            InferenceSession _session_stn = new InferenceSession(_model_stn);
+
             using Image<Rgb24> img = Image.Load<Rgb24>(image, out IImageFormat format);
 
             using Stream imageStream = new MemoryStream();
@@ -56,19 +63,13 @@ namespace Analog.Models
                 }
             });
 
-            // Setup inputs
-            var inputs = new List<NamedOnnxValue>
-            {
-                NamedOnnxValue.CreateFromTensor("data", input)
-            };
-
             // Run inference
-            using IDisposableReadOnlyCollection<DisposableNamedOnnxValue> results = _session.Run(inputs);
+            //using IDisposableReadOnlyCollection<DisposableNamedOnnxValue> results = _session.Run();
 
             // Postprocess to get softmax vector
-            IEnumerable<float> output = results.First().AsEnumerable<float>();
-            float sum = output.Sum(x => (float)Math.Exp(x));
-            IEnumerable<float> softmax = output.Select(x => (float)Math.Exp(x) / sum);
+            //IEnumerable<float> output = results.First().AsEnumerable<float>();
+            //float sum = output.Sum(x => (float)Math.Exp(x));
+            //IEnumerable<float> softmax = output.Select(x => (float)Math.Exp(x) / sum);
 
             // Extract top 10 predicted classes
             //IEnumerable<Prediction> top10 = softmax.Select((x, i) => new Prediction { Label = LabelMap.Labels[i], Confidence = x })
@@ -113,23 +114,6 @@ namespace Analog.Models
             //session.Dispose();
 
             return "";
-        }
-
-        byte[] LoadModelFromEmbeddedResource(string path)
-        {
-            var assembly = typeof(ClockScan).Assembly;
-            byte[] model = null;
-
-            using (Stream stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.{path}"))
-            {
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    stream.CopyTo(memoryStream);
-                    model = memoryStream.ToArray();
-                }
-            }
-
-            return model;
         }
     }
 }
