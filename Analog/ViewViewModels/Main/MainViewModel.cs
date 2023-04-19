@@ -29,11 +29,12 @@ namespace Analog.ViewViewModels.Main
             {
                 string result = await _clockScan.GetClassificationAsync(imgAsBytes);
                 await Application.Current.MainPage.DisplayAlert("Result", result, "OK");
-            } catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace);
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
         }
     }
 }
