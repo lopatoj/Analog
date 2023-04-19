@@ -38,8 +38,7 @@
                     TextColor="White"
                     BackgroundColor="Black"
                     FontSize="18"
-                    CornerRadius="5"
-                    Clicked="On_Setting_Button_Clicked" />
+                    CornerRadius="5" />
 
         </StackLayout>
         
