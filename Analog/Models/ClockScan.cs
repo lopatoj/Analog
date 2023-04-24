@@ -64,7 +64,7 @@ namespace Analog.Models
             });
 
             // Run inference
-            //using IDisposableReadOnlyCollection<DisposableNamedOnnxValue> results = _session.Run();
+            //using IDisposableReadOnlyCollection<DisposableNamedOnnxValue> results = _session.Run(input);
 
             // Postprocess to get softmax vector
             //IEnumerable<float> output = results.First().AsEnumerable<float>();
@@ -94,26 +94,26 @@ namespace Analog.Models
             // https://onnxruntime.ai/docs/api/csharp-api#methods-1
             // https://onnxruntime.ai/docs/api/csharp-api#namedonnxvalue
 
-            // using var results = _session.Run(new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor(ModelInputName, input) });
+            var results = _session.Run(new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor("input.1", input) });
 
             // Resolve model output
             // https://github.com/onnx/models/tree/master/vision/classification/mobilenet#output
             // https://onnxruntime.ai/docs/api/csharp-api#disposablenamedonnxvalue
 
-            // var output = results.FirstOrDefault(i => i.Name == ModelOutputName);
+            var output = results.FirstOrDefault(i => i.Name == "495");
 
 
 
             // Postprocess output (get highest score and corresponding label)
             // https://github.com/onnx/models/tree/master/vision/classification/mobilenet#postprocessing
 
-            // var scores = output.AsTensor<float>().ToList();
-            // var highestScore = scores.Max();
-            // var time = Math.Floor(highestScore / 60) + ":" + highestScore % 60; // returns time as string in format: hours:minutes
+            var scores = output.AsTensor<float>().ToList();
+            var highestScore = scores.Max();
+            var time = Math.Floor(highestScore / 60) + ":" + highestScore % 60; // returns time as string in format: hours:minutes
 
             //session.Dispose();
 
-            return "";
+            return time;
         }
     }
 }
