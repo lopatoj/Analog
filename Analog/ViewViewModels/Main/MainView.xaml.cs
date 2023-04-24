@@ -41,10 +41,13 @@ namespace Analog.ViewViewModels.Main
             var assembly = GetType().Assembly;
 
             Stream stream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
+            using var mStream = new MemoryStream();
+            stream.CopyTo(mStream);
+
             if (stream != null)
             {
-                VM.imgAsBytes = null; // needs updating
-                VM.RunInferenceAsync();
+                VM.imgAsBytes = mStream.ToArray();
+                await VM.RunInferenceAsync();
             }
 
             (sender as Button).IsEnabled = true;
