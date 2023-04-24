@@ -109,11 +109,11 @@ namespace Analog.Models
 
             var scores = output.AsTensor<float>().ToList();
             var highestScore = scores.Max();
-            var time = Math.Floor(highestScore / 60) + ":" + highestScore % 60; // returns time as string in format: hours:minutes
+            var time = Math.Abs(highestScore) / 0.22375; // returns time as string in format: hours:minutes
 
             //session.Dispose();
 
-            return time;
+            return time.ToString();
         }
     }
 }
