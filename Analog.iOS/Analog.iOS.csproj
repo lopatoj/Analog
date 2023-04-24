@@ -126,6 +126,9 @@
     <PackageReference Include="Microsoft.ML.OnnxTransformer">
       <Version>2.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Numpy">
+      <Version>3.11.1.33</Version>
+    </PackageReference>
     <PackageReference Include="SixLabors.ImageSharp">
       <Version>2.1.4</Version>
     </PackageReference>

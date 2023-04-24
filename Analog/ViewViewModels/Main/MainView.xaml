@@ -5,6 +5,10 @@
              x:Class="Analog.ViewViewModels.Main.MainView"
              Title="{Binding Title}">
     
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Settings" x:Name="SettingsBTN" Command="{Binding SettingsCommand}"/>
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         
         <StackLayout Margin="10">

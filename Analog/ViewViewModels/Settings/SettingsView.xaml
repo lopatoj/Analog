@@ -6,7 +6,22 @@
              >
     <ContentPage.Content>
         <StackLayout>
-            
+            <StackLayout HorizontalOptions="FillAndExpand">
+                <StackLayout HorizontalOptions="Center">
+                    <Label FontAttributes="Bold"
+                           FontSize="Large"/>
+                </StackLayout>
+
+                <Slider x:Name="Accuracy" Value="0.5"
+                        ThumbColor="Aquamarine"
+                        MinimumTrackColor="Bisque"
+                        MaximumTrackColor="PaleVioletRed"/>
+            </StackLayout>
+
+            <Label Text="Moving Slider will change the accuracy"
+                   HorizontalOptions="Center"
+                   FontAttributes="Bold"
+                   FontSize="Medium"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
