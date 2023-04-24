@@ -6,16 +6,10 @@
              >
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout BindingContext="{x:Reference slider}"
-                         HorizontalOptions="FillAndExpand">
-                <BoxView Color="Blue"
-                         Opacity="{BindingValue}"/>
+            <StackLayout HorizontalOptions="FillAndExpand">
                 <StackLayout HorizontalOptions="Center">
-                    <Label Text="{Binding Value,
-                        StringFormat = 'Accuracy value is {0:F2}'}"
-                           FontAttributes="Bold"
-                           FontSize="Large"
-                           Opacity="{Binding Value}"/>
+                    <Label FontAttributes="Bold"
+                           FontSize="Large"/>
                 </StackLayout>
 
                 <Slider x:Name="Accuracy" Value="0.5"
