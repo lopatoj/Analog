@@ -6,7 +6,28 @@
              >
     <ContentPage.Content>
         <StackLayout>
-            
+            <StackLayout BindingContext="{x:Reference slider}"
+                         HorizontalOptions="FillAndExpand">
+                <BoxView Color="Blue"
+                         Opacity="{BindingValue}"/>
+                <StackLayout HorizontalOptions="Center">
+                    <Label Text="{Binding Value,
+                        StringFormat = 'Accuracy value is {0:F2}'}"
+                           FontAttributes="Bold"
+                           FontSize="Large"
+                           Opacity="{Binding Value}"/>
+                </StackLayout>
+
+                <Slider x:Name="Accuracy" Value="0.5"
+                        ThumbColor="Aquamarine"
+                        MinimumTrackColor="Bisque"
+                        MaximumTrackColor="PaleVioletRed"/>
+            </StackLayout>
+
+            <Label Text="Moving Slider will change the accuracy"
+                   HorizontalOptions="Center"
+                   FontAttributes="Bold"
+                   FontSize="Medium"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
