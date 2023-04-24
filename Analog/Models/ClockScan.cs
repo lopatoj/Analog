@@ -102,16 +102,15 @@ namespace Analog.Models
 
             var output = results.FirstOrDefault(i => i.Name == "495");
 
-
-
             // Postprocess output (get highest score and corresponding label)
             // https://github.com/onnx/models/tree/master/vision/classification/mobilenet#postprocessing
 
             var scores = output.AsTensor<float>().ToList();
-            var highestScore = scores.Max();
-            var time = Math.Abs(highestScore) / 0.22375; // returns time as string in format: hours:minutes
+            var highestScore = scores[0];
+            var time = scores.ToString(); // returns time as string in format: hours:minutes
 
-            //session.Dispose();
+            _session.Dispose();
+            _session_stn.Dispose();
 
             return time.ToString();
         }
