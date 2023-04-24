@@ -4,9 +4,11 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="Analog.ViewViewModels.Main.MainView"
              Title="{Binding Title}">
-             <ContentPage.ToolbarItems>
-                <ToolbarItem Text="Add" x:Name="Addbtn" Command="{Binding AddCommand}"/>
-             </ContentPage.ToolbarItems>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Settings" x:Name="SettingsBTN" Command="{Binding SettingsCommand}"/>
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         
         <StackLayout Margin="10">
