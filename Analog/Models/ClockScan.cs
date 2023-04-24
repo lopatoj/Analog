@@ -52,22 +52,5 @@ namespace Analog.Models
 
             return "";
         }
-
-        byte[] LoadModelFromEmbeddedResource(string path)
-        {
-            var assembly = typeof(ClockScan).Assembly;
-            byte[] model = null;
-
-            using (Stream stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.{path}"))
-            {
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    stream.CopyTo(memoryStream);
-                    model = memoryStream.ToArray();
-                }
-            }
-
-            return model;
-        }
     }
 }
