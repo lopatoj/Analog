@@ -15,14 +15,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\img17_stn.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\img17_stn.png" />
     <EmbeddedResource Include="Resources\analog.onnx" />
     <EmbeddedResource Include="Resources\analog_stn.onnx" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Emgu.CV" Version="4.7.0.5276" />
     <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.14.1" />
     <PackageReference Include="Microsoft.ML.OnnxTransformer" Version="2.0.1" />
     <PackageReference Include="Numpy" Version="3.11.1.33" />
+    <PackageReference Include="NumSharp" Version="0.30.0" />
+    <PackageReference Include="OpenCvSharp4" Version="4.7.0.20230115" />
     <PackageReference Include="SixLabors.ImageSharp" Version="2.1.4" />
     <PackageReference Include="SkiaSharp" Version="2.88.3" />
     <PackageReference Include="System.Numerics.Tensors" Version="0.1.0" />
