@@ -10,6 +10,7 @@ using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Advanced;
 using System.Collections.Generic;
 using System.Linq;
+using Emgu.CV;
 
 namespace Analog.Models
 {
@@ -31,6 +32,11 @@ namespace Analog.Models
             modelStream_stn.CopyTo(modelMemoryStream_stn);
             byte[] _model_stn = modelMemoryStream_stn.ToArray();
             InferenceSession _session_stn = new InferenceSession(_model_stn);
+
+            Mat _img = new Mat();
+
+            CvInvoke.Imdecode(image, Emgu.CV.CvEnum.ImreadModes.Unchanged, _img);
+            CvInvoke.Resize(_img, _img / 255, new System.Drawing.Size(224, 224), 0, 0);
 
             using Image<Rgb24> img = Image.Load<Rgb24>(image, out IImageFormat format);
 

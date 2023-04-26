@@ -58,6 +58,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Emgu.CV">
+      <Version>4.7.0.5276</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.ML.OnnxRuntime">
       <Version>1.14.1</Version>
     </PackageReference>
