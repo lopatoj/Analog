@@ -6,7 +6,7 @@
              Title="{Binding Title}">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Settings" x:Name="SettingsBTN" Command="{Binding SettingsCommand}"/>
+        <ToolbarItem Text="Settings" x:Name="SettingsBTN" Command="{Binding OnSettingsClicked}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
@@ -36,14 +36,6 @@
                     FontSize="18"
                     CornerRadius="5"
                     Clicked="On_Gallery_Button_Clicked" />
-
-            <!--<Button Text="Setting"
-                    FontAttributes="Bold"
-                    TextColor="White"
-                    BackgroundColor="Black"
-                    FontSize="18"
-                    CornerRadius="5"
-                    Clicked="On_Setting_Button_Clicked" />-->
 
         </StackLayout>
         
