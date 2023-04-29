@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Python.Runtime;
 using Numpy;
+using Xamarin.Essentials;
 
 namespace Analog.Models
 {
@@ -20,23 +21,21 @@ namespace Analog.Models
         public async Task<string> GetClassificationAsync(byte[] image)
         {
             var assembly = GetType().Assembly;
+
+            // model
             using var modelStream = assembly.GetManifestResourceStream("Analog.Resources.analog.onnx");
             using var modelMemoryStream = new MemoryStream();
-
             modelStream.CopyTo(modelMemoryStream);
-            byte[] _model = modelMemoryStream.ToArray();
-            InferenceSession _session = new InferenceSession(_model);
-            
+            byte[] model = modelMemoryStream.ToArray();
+            InferenceSession session = new InferenceSession(model);
 
+            // test image
+            using var imgStream = assembly.GetManifestResourceStream("Analog.Images.img17_stn.png");
+            using var imageMemoryStream = new MemoryStream();
+            imgStream.CopyTo(imageMemoryStream);
+            var testImg = imageMemoryStream.ToArray();
 
-            using var modelStream_stn = assembly.GetManifestResourceStream("Analog.Resources.analog_stn.onnx");
-            using var modelMemoryStream_stn = new MemoryStream();
-
-            modelStream_stn.CopyTo(modelMemoryStream_stn);
-            byte[] _model_stn = modelMemoryStream_stn.ToArray();
-            InferenceSession _session_stn = new InferenceSession(_model_stn);
-
-            using Image<Rgb24> img = Image.Load<Rgb24>(image, out IImageFormat format);
+            using Image<Rgb24> img = Image.Load<Rgb24>(testImg, out IImageFormat format);
 
             using Stream imageStream = new MemoryStream();
             img.Mutate(x =>
@@ -44,13 +43,13 @@ namespace Analog.Models
                 x.Resize(new ResizeOptions
                 {
                     Size = new Size(224, 224),
-                    Mode = ResizeMode.Crop
+                    Mode = ResizeMode.Stretch,
                 });
             });
             img.Save(imageStream, format);
 
             // Preprocess image 
-            Tensor<float> input = new DenseTensor<float>(new[] { 1, 224, 3, 224 });
+            Tensor<float> input = new DenseTensor<float>(new[] { 1, 3, 224, 224 });
             img.ProcessPixelRows(accessor =>
             {
                 for (int y = 0; y < accessor.Height; y++)
@@ -58,44 +57,25 @@ namespace Analog.Models
                     Span<Rgb24> pixelSpan = accessor.GetRowSpan(y);
                     for (int x = 0; x < accessor.Width; x++)
                     {
-                        input[0, x, 0, y] = (pixelSpan[x].R / 255f);
-                        input[0, x, 1, y] = (pixelSpan[x].G / 255f);
-                        input[0, x, 2, y] = (pixelSpan[x].B / 255f);
+                        input[0, 0, x, y] = (float)pixelSpan[x].R / 255f;
+                        input[0, 1, x, y] = (float)pixelSpan[x].G / 255f;
+                        input[0, 2, x, y] = (float)pixelSpan[x].B / 255f;
                     }
                 }
             });
 
-            // Run inferencing
-            // https://onnxruntime.ai/docs/api/csharp-api#methods-1
-            // https://onnxruntime.ai/docs/api/csharp-api#namedonnxvalue
+            var results = session.Run(new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor("input.1", input) });
 
-            var results = _session.Run(new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor("input.1", input) });
+            var output = results.Last(i => i.Name == "495").AsEnumerable<float>();
 
-            // Resolve model output
-            // https://github.com/onnx/models/tree/master/vision/classification/mobilenet#output
-            // https://onnxruntime.ai/docs/api/csharp-api#disposablenamedonnxvalue
-
-            //var output = results.LastOrDefault(i => i.Name == "495");
-
-            // Postprocess output (get highest score and corresponding label)
-            // https://github.com/onnx/models/tree/master/vision/classification/mobilenet#postprocessing
-
-            IEnumerable<float> output = results.First(i => i.Name == "495").AsEnumerable<float>();
-            //float sum = output.Sum(x => (float)Math.Exp(x));
-            //Console.WriteLine(sum.ToString());
-            //IEnumerable<float> softmax = output.Select(x => (float)Math.Exp(x) / sum);
-            
-            var scores = output.ToList();
-            for(int i = 0; i < scores.Count; i++)
+            foreach(var i in output)
             {
-                scores[i] = Math.Abs(scores[i]);
-                Console.WriteLine(scores[i].ToString());
+                Console.WriteLine(i);
             }
-            _session.Dispose();
-            //float newtime = sum * 60;
-            //string time = Math.Floor(newtime / 60) + ":" + Math.Round(newtime % 60);
 
-            return scores.Average()+ "";
+            //string time = Math.Floor(output.AsEnumerable().First() / 60) + ":" + Math.Round(output.AsEnumerable().First() % 60);
+
+            return output.First() + "";
         }
     }
 }

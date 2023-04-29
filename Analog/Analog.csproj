@@ -15,6 +15,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\img17_stn.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\img17_stn.png" />
     <EmbeddedResource Include="Resources\analog.onnx" />
     <EmbeddedResource Include="Resources\analog_stn.onnx" />
   </ItemGroup>
