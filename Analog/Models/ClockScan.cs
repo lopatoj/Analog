@@ -58,6 +58,7 @@ namespace Analog.Models
                     for (int x = 0; x < accessor.Width; x++)
                     {
                         input[0, 0, x, y] = (float)pixelSpan[x].R / 255f;
+                        Console.WriteLine((float)pixelSpan[x].R / 255f);
                         input[0, 1, x, y] = (float)pixelSpan[x].G / 255f;
                         input[0, 2, x, y] = (float)pixelSpan[x].B / 255f;
                     }
