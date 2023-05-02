@@ -35,7 +35,7 @@ namespace Analog.Models
             imgStream.CopyTo(imageMemoryStream);
             var testImg = imageMemoryStream.ToArray();
 
-            using Image<Rgb24> img = Image.Load<Rgb24>(testImg, out IImageFormat format);
+            using Image<Rgb24> img = Image.Load<Rgb24>(image, out IImageFormat format);
 
             using Stream imageStream = new MemoryStream();
             img.Mutate(x =>
