@@ -30,7 +30,7 @@ namespace Analog.Models
             InferenceSession session = new InferenceSession(model);
 
             // test image
-            using var imgStream = assembly.GetManifestResourceStream("Analog.Images.img17_stn.png");
+            using var imgStream = assembly.GetManifestResourceStream("Analog.Images.img.png");
             using var imageMemoryStream = new MemoryStream();
             imgStream.CopyTo(imageMemoryStream);
             var testImg = imageMemoryStream.ToArray();
