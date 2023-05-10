@@ -18,6 +18,8 @@ namespace Analog.ViewViewModels.Main
         private ClockScan _clockScan;
 
         public ICommand OnSettingsClicked { get; set; }
+        public ICommand OnScan { get; set; }
+        public ICommand OnGallery { get; set; }
 
         public MainViewModel()
         {
@@ -26,6 +28,8 @@ namespace Analog.ViewViewModels.Main
             _clockScan = new ClockScan();
 
             OnSettingsClicked = new Command(OnSettingsClickedAsync);
+            OnScan = new Command(OnScanClicked);
+            OnGallery = new Command(OnGalleryClicked);
         }
 
         public async Task RunInferenceAsync()
@@ -45,6 +49,16 @@ namespace Analog.ViewViewModels.Main
         public async void OnSettingsClickedAsync(object obj) 
         {
             await Application.Current.MainPage.Navigation.PushAsync(new SettingsView());
+        }
+
+        public async void OnScanClicked()
+        {
+            await Application.Current.MainPage.DisplayAlert("Result", "Time on the clock is 1:51", "OK");
+        }
+
+        public async void OnGalleryClicked()
+        {
+            await Application.Current.MainPage.DisplayAlert("Result", "Time on the clock is 10:08", "OK");
         }
     }
 }
