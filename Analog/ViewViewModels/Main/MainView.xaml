@@ -27,7 +27,7 @@
                     BackgroundColor="#3A3B3C"
                     FontSize="18"
                     CornerRadius="5"
-                    Command="{Binding OnScan}" />
+                    Clicked="CaptureImage" />
 
             <Button Text="Scan from Gallery"
                     FontAttributes="Bold"
@@ -35,7 +35,7 @@
                     BackgroundColor="#3A3B3C"
                     FontSize="18"
                     CornerRadius="5"
-                    Command="{Binding OnGallery}" />
+                    Clicked="On_Gallery_Button_Clicked" />
 
         </StackLayout>
         

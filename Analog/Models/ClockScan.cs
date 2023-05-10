@@ -18,7 +18,7 @@ namespace Analog.Models
 {
     public class ClockScan
     {
-        private string path { get; set; } = "http://localhost:3000/predict";
+        const string PATH = "https://flask-test-inky.vercel.app/predict";
         public async Task<string> GetClassificationAsync(byte[] image)
         {
             var assembly = GetType().Assembly;
@@ -82,15 +82,15 @@ namespace Analog.Models
 
         public async Task<string> GetFromAPIAsync(byte[] image)
         {
-            //Clock result = null;
-            //HttpClient client = new HttpClient();
+            HttpClient client = new HttpClient();
 
-            //HttpResponseMessage response = await client.GetAsync(path);
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    result = await response.Content.
-            //}
-            return "";
+            ByteArrayContent content = new ByteArrayContent(image);
+
+            HttpResponseMessage response = await client.GetAsync(PATH);
+
+            client.Dispose();
+
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }
