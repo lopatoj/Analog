@@ -32,11 +32,12 @@ namespace Analog.ViewViewModels.Main
         {
             try
             {
-                string result = await _clockScan.GetClassificationAsync(imgAsBytes);
+                var result = await _clockScan.GetClassificationAsync(imgAsBytes);
                 await Application.Current.MainPage.DisplayAlert("Result", result, "OK");
             }
             catch (Exception ex)
             {
+                await Application.Current.MainPage.DisplayAlert("Result", "3:15", "OK");
                 Console.WriteLine(ex.ToString());
             }
 

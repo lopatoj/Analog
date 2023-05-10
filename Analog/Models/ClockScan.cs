@@ -78,5 +78,10 @@ namespace Analog.Models
 
             return output.First() + "";
         }
+
+        public async Task<string> GetFromAPIAsync(byte[] image)
+        {
+            return "";
+        }
     }
 }
