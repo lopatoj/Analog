@@ -30,12 +30,12 @@ namespace Analog.Models
             InferenceSession session = new InferenceSession(model);
 
             // test image
-            using var imgStream = assembly.GetManifestResourceStream("Analog.Images.img17_stn.png");
+            using var imgStream = assembly.GetManifestResourceStream("Analog.Images.img.png");
             using var imageMemoryStream = new MemoryStream();
             imgStream.CopyTo(imageMemoryStream);
             var testImg = imageMemoryStream.ToArray();
 
-            using Image<Rgb24> img = Image.Load<Rgb24>(testImg, out IImageFormat format);
+            using Image<Rgb24> img = Image.Load<Rgb24>(image, out IImageFormat format);
 
             using Stream imageStream = new MemoryStream();
             img.Mutate(x =>
