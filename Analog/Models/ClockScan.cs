@@ -18,7 +18,7 @@ namespace Analog.Models
 {
     public class ClockScan
     {
-        const string PATH = "https://flask-test-inky.vercel.app/predict";
+        const string PATH = "https://flask-analog.up.railway.app/predict";
         public async Task<string> GetClassificationAsync(byte[] image)
         {
             var assembly = GetType().Assembly;
@@ -82,11 +82,8 @@ namespace Analog.Models
 
         public async Task<string> GetFromAPIAsync(byte[] image)
         {
-            HttpClient client = new HttpClient();
-
-            ByteArrayContent content = new ByteArrayContent(image);
-
-            HttpResponseMessage response = await client.GetAsync(PATH);
+            var client = new HttpClient();
+            var response = await client.PostAsync(PATH, new ByteArrayContent(image));
 
             client.Dispose();
 
