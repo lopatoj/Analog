@@ -6,7 +6,7 @@
              Title="{Binding Title}">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Settings" x:Name="SettingsBTN" Command="{Binding OnSettingsClicked}"/>
+        <ToolbarItem Text="Settings" Command="{Binding OnSettingsClicked}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>

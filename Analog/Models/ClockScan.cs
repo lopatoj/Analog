@@ -18,12 +18,11 @@ namespace Analog.Models
 {
     public class ClockScan
     {
-        const string PATH = "https://flask-analog.up.railway.app/predict";
         public async Task<string> GetClassificationAsync(byte[] image, bool isScan)
         {
             var assembly = GetType().Assembly;
 
-            // model
+            // Initialize the model
             using var modelStream = assembly.GetManifestResourceStream("Analog.Resources.analog.onnx");
             using var modelMemoryStream = new MemoryStream();
             modelStream.CopyTo(modelMemoryStream);
@@ -32,13 +31,17 @@ namespace Analog.Models
 
             using Image<Rgb24> img = Image.Load<Rgb24>(image, out IImageFormat format);
 
+            // Image preprocessing
             img.Mutate(x =>
             {
+                // Size must be initialized to 224 by 244 for the model to read the image correctly
                 x.Resize(new ResizeOptions
                 {
                     Size = new Size(224, 224),
                     Mode = ResizeMode.Crop
                 });
+
+                // Using the cameraview output rotates the image 90 degrees for some reason, this corrects this issue
                 if (isScan)
                 {
                     x.Rotate(RotateMode.Rotate90);
@@ -53,6 +56,7 @@ namespace Analog.Models
                 for (int y = 0; y < accessor.Height; y++)
                 {
                     Span<Rgb24> pixelSpan = accessor.GetRowSpan(y);
+                    // Normalize the RGB values from 0 to 1
                     for (int x = 0; x < accessor.Width; x++)
                     {
                         input[0, 0, y, x] = pixelSpan[x].R / 255f;
@@ -62,10 +66,12 @@ namespace Analog.Models
                 }
             });
 
+            // Model is run, and we take the first output
             var results = session.Run(new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor("input.1", input) });
 
-            var output = results.FirstOrDefault(i => { Console.WriteLine(i.Name); return i.Name == "495"; }).AsEnumerable<float>();
+            var output = results.FirstOrDefault(i => { return i.Name == "495"; }).AsEnumerable<float>();
 
+            // Time is the index of the largest output
             int count = 0;
 
             float max = float.MinValue;
@@ -82,6 +88,7 @@ namespace Analog.Models
                 count++;
             }
 
+            // Ensures our resulting time is formated in hh:mm format
             string time = maxindex / 60 + ":" + (maxindex % 60 < 10 ? "0" : "") +  maxindex % 60.0;
                       
             return "The time is " + time;

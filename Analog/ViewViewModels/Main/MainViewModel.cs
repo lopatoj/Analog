@@ -18,8 +18,6 @@ namespace Analog.ViewViewModels.Main
         private ClockScan _clockScan;
 
         public ICommand OnSettingsClicked { get; set; }
-        public ICommand OnScan { get; set; }
-        public ICommand OnGallery { get; set; }
 
         public MainViewModel()
         {
@@ -32,6 +30,7 @@ namespace Analog.ViewViewModels.Main
 
         public async Task RunInferenceAsync(bool issc)
         {
+            // Runs the model with isScan set to whether the image is from the camera or from the gallery
             var result = await _clockScan.GetClassificationAsync(imgAsBytes, issc);
             await Application.Current.MainPage.DisplayAlert("Result", result, "OK");
         }
