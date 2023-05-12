@@ -44,7 +44,7 @@ namespace Analog.Models
                 x.Resize(new ResizeOptions
                 {
                     Size = new Size(224, 224),
-                    Mode = ResizeMode.Stretch
+                    Mode = ResizeMode.Pad
                 });
             });
             //img.Save(imageStream, format);
@@ -58,9 +58,9 @@ namespace Analog.Models
                     Span<Rgb24> pixelSpan = accessor.GetRowSpan(y);
                     for (int x = 0; x < accessor.Width; x++)
                     {
-                        input[0, 0, x, y] = pixelSpan[x].R / 255f;
-                        input[0, 1, x, y] = pixelSpan[x].G / 255f;
-                        input[0, 2, x, y] = pixelSpan[x].B / 255f;
+                        input[0, 0, x, y] = pixelSpan[x].R;
+                        input[0, 1, x, y] = pixelSpan[x].G;
+                        input[0, 2, x, y] = pixelSpan[x].B;
                     }
                 }
             });
@@ -69,14 +69,30 @@ namespace Analog.Models
 
             var output = results.Last(i => { Console.WriteLine(i.Name); return i.Name == "495"; }).AsEnumerable<float>();
 
+            int count = 0;
+
+            float max = 0f;
+
+            int maxindex = 0;
+
             foreach(var i in output)
             {
+                count++;
+                if(count == 1)
+                {
+                    max = i;
+                }
                 Console.WriteLine(i);
+                if (i > max)
+                {
+                    max = i;
+                    maxindex = count;
+                }
             }
+            Console.WriteLine(maxindex);
+            string time = maxindex / 60 + ":" + maxindex % 60.0;
 
-            //string time = Math.Floor(output.AsEnumerable().First() / 60) + ":" + Math.Round(output.AsEnumerable().First() % 60);
-
-            return output.First() + "";
+            return time + "";
         }
 
         public async Task<string> GetFromAPIAsync(byte[] image)
