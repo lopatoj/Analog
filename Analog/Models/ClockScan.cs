@@ -44,13 +44,15 @@ namespace Analog.Models
                 x.Resize(new ResizeOptions
                 {
                     Size = new Size(224, 224),
-                    Mode = ResizeMode.Pad
+                    Mode = ResizeMode.BoxPad
                 });
             });
             //img.Save(imageStream, format);
 
             // Preprocess image 
             Tensor<float> input = new DenseTensor<float>(new[] { 1, 3, 224, 224 });
+            var mean = new[] { 0.485f, 0.456f, 0.406f };
+            var stddev = new[] { 0.229f, 0.224f, 0.225f };
             img.ProcessPixelRows(accessor =>
             {
                 for (int y = 0; y < accessor.Height; y++)
@@ -58,16 +60,16 @@ namespace Analog.Models
                     Span<Rgb24> pixelSpan = accessor.GetRowSpan(y);
                     for (int x = 0; x < accessor.Width; x++)
                     {
-                        input[0, 0, x, y] = pixelSpan[x].R;
-                        input[0, 1, x, y] = pixelSpan[x].G;
-                        input[0, 2, x, y] = pixelSpan[x].B;
+                        input[0, 0, x, y] = pixelSpan[x].R / 255f;
+                        input[0, 1, x, y] = pixelSpan[x].G / 255f;
+                        input[0, 2, x, y] = pixelSpan[x].B / 255f;
                     }
                 }
             });
 
             var results = session.Run(new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor("input.1", input) });
 
-            var output = results.Last(i => { Console.WriteLine(i.Name); return i.Name == "495"; }).AsEnumerable<float>();
+            var output = results.First(i => { Console.WriteLine(i.Name); return i.Name == "495"; }).AsEnumerable<float>();
 
             int count = 0;
 
@@ -75,12 +77,17 @@ namespace Analog.Models
 
             int maxindex = 0;
 
+            float threeval = 0;
+
             foreach(var i in output)
             {
-                count++;
-                if(count == 1)
+                if (count == 0)
                 {
                     max = i;
+                }
+                if(count == 180)
+                {
+                    threeval = i;
                 }
                 Console.WriteLine(i);
                 if (i > max)
@@ -88,8 +95,11 @@ namespace Analog.Models
                     max = i;
                     maxindex = count;
                 }
+                count++;
             }
             Console.WriteLine(maxindex);
+            Console.WriteLine(max);
+            Console.WriteLine(threeval);
             string time = maxindex / 60 + ":" + maxindex % 60.0;
 
             return time + "";
