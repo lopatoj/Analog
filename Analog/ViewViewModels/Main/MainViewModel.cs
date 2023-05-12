@@ -32,9 +32,9 @@ namespace Analog.ViewViewModels.Main
             OnGallery = new Command(OnGalleryClicked);
         }
 
-        public async Task RunInferenceAsync()
+        public async Task RunInferenceAsync(bool issc)
         {
-            var result = await _clockScan.GetClassificationAsync(imgAsBytes);
+            var result = await _clockScan.GetClassificationAsync(imgAsBytes, issc);
             await Application.Current.MainPage.DisplayAlert("Result", result, "OK");
             
             /*try

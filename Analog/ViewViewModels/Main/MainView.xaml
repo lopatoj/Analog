@@ -12,15 +12,18 @@
     <ContentPage.Content>
         
         <StackLayout Margin="10">
-
-            <xct:CameraView
-                x:Name="cameraView"
-                CaptureMode="Photo"
-                MediaCaptured="MediaCaptured"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand"
-                HeightRequest="224"
-                WidthRequest="224"/>
+            <StackLayout Margin="10"
+                         HeightRequest="224"
+                         WidthRequest="224">
+                <xct:CameraView
+                    x:Name="cameraView"
+                    CaptureMode="Photo"
+                    MediaCaptured="MediaCaptured"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="224"
+                    WidthRequest="224"/>
+            </StackLayout>
 
             <Button Text="Scan"
                     x:Name="scanBtn"
