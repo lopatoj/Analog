@@ -62,6 +62,11 @@ namespace Analog.Models
                         input[0, 0, y, x] = pixelSpan[x].R / 255f;
                         input[0, 1, y, x] = pixelSpan[x].G / 255f;
                         input[0, 2, y, x] = pixelSpan[x].B / 255f;
+
+                        // Log image RGB data for testing
+                        Console.WriteLine(y + ":" + pixelSpan[x].R / 255f);
+                        Console.WriteLine(y + ":" + pixelSpan[x].G / 255f);
+                        Console.WriteLine(y + ":" + pixelSpan[x].B / 255f);
                     }
                 }
             });
