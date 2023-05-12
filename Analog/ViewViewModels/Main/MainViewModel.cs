@@ -28,41 +28,17 @@ namespace Analog.ViewViewModels.Main
             _clockScan = new ClockScan();
 
             OnSettingsClicked = new Command(OnSettingsClickedAsync);
-            OnScan = new Command(OnScanClicked);
-            OnGallery = new Command(OnGalleryClicked);
         }
 
         public async Task RunInferenceAsync(bool issc)
         {
             var result = await _clockScan.GetClassificationAsync(imgAsBytes, issc);
             await Application.Current.MainPage.DisplayAlert("Result", result, "OK");
-            
-            /*try
-            {
-                var result = await _clockScan.GetFromAPIAsync(imgAsBytes);
-                await Application.Current.MainPage.DisplayAlert("Result", result, "OK");
-            }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Result", ex.Message, "OK");
-                Console.WriteLine(ex.ToString());
-            }*/
-
         }
 
         public async void OnSettingsClickedAsync(object obj) 
         {
             await Application.Current.MainPage.Navigation.PushAsync(new SettingsView());
-        }
-
-        public async void OnScanClicked()
-        {
-            await Application.Current.MainPage.DisplayAlert("Result", "Time on the clock is 1:51", "OK");
-        }
-
-        public async void OnGalleryClicked()
-        {
-            await Application.Current.MainPage.DisplayAlert("Result", "Time on the clock is 10:08", "OK");
         }
     }
 }

@@ -30,15 +30,8 @@ namespace Analog.Models
             byte[] model = modelMemoryStream.ToArray();
             InferenceSession session = new InferenceSession(model);
 
-            // test image
-            //using var imgStream = assembly.GetManifestResourceStream("Analog.Images.img.png");
-            //using var imageMemoryStream = new MemoryStream();
-            //imgStream.CopyTo(imageMemoryStream);
-            //var testImg = imageMemoryStream.ToArray();
-
             using Image<Rgb24> img = Image.Load<Rgb24>(image, out IImageFormat format);
 
-            //using Stream imageStream = new MemoryStream();
             img.Mutate(x =>
             {
                 x.Resize(new ResizeOptions
@@ -51,12 +44,10 @@ namespace Analog.Models
                     x.Rotate(RotateMode.Rotate90);
                 }
             });
-            //img.Save(imageStream, format);
 
             // Preprocess image 
             Tensor<float> input = new DenseTensor<float>(new[] { 1, 3, 224, 224 });
-            //var mean = new[] { 0.485f, 0.456f, 0.406f };
-            //var stddev = new[] { 0.229f, 0.224f, 0.225f };
+
             img.ProcessPixelRows(accessor =>
             {
                 for (int y = 0; y < accessor.Height; y++)
@@ -81,15 +72,8 @@ namespace Analog.Models
 
             int maxindex = 0;
 
-            float threeval = 0;
-
             foreach(var i in output.AsEnumerable<float>())
             {
-                if(count == 180)
-                {
-                    threeval = i;
-                }
-                Console.WriteLine(i);
                 if (i > max)
                 {
                     max = i;
@@ -97,23 +81,10 @@ namespace Analog.Models
                 }
                 count++;
             }
-            Console.WriteLine(maxindex);
-            Console.WriteLine(max);
-            Console.WriteLine(threeval);
-            Console.WriteLine(count);
+
             string time = maxindex / 60 + ":" + (maxindex % 60 < 10 ? "0" : "") +  maxindex % 60.0;
                       
-            return time + "";
-        }
-
-        public async Task<string> GetFromAPIAsync(byte[] image)
-        {
-            var client = new HttpClient();
-            var response = await client.PostAsync(PATH, new ByteArrayContent(image));
-
-            client.Dispose();
-
-            return await response.Content.ReadAsStringAsync();
+            return "The time is " + time;
         }
     }
 }
