@@ -71,7 +71,7 @@ namespace Analog.Models
                 }
             });
 
-            // Model is run, and we take the first output
+            // Model is run, and we take the first output from each batch
             var results = session.Run(new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor("input.1", input) });
 
             var output = results.FirstOrDefault(i => { return i.Name == "495"; }).AsEnumerable<float>();
