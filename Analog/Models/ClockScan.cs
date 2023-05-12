@@ -101,8 +101,8 @@ namespace Analog.Models
             Console.WriteLine(max);
             Console.WriteLine(threeval);
             Console.WriteLine(count);
-            string time = maxindex / 60 + ":" + maxindex % 60.0;
-
+            string time = maxindex / 60 + ":" + (maxindex % 60 < 10 ? "0" : "") +  maxindex % 60.0;
+                      
             return time + "";
         }
 
