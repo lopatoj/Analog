@@ -1,5 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
@@ -7,17 +10,15 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats;
-using SixLabors.ImageSharp.Advanced;
 using System.Collections.Generic;
 using System.Linq;
-using Python.Runtime;
-using Numpy;
-using Xamarin.Essentials;
+using Xamarin.Forms.Shapes;
 
 namespace Analog.Models
 {
     public class ClockScan
     {
+        const string PATH = "https://flask-analog.up.railway.app/predict";
         public async Task<string> GetClassificationAsync(byte[] image)
         {
             var assembly = GetType().Assembly;
@@ -76,6 +77,16 @@ namespace Analog.Models
             //string time = Math.Floor(output.AsEnumerable().First() / 60) + ":" + Math.Round(output.AsEnumerable().First() % 60);
 
             return output.First() + "";
+        }
+
+        public async Task<string> GetFromAPIAsync(byte[] image)
+        {
+            var client = new HttpClient();
+            var response = await client.PostAsync(PATH, new ByteArrayContent(image));
+
+            client.Dispose();
+
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }
