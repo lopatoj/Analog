@@ -58,9 +58,9 @@ namespace Analog.Models
                     Span<Rgb24> pixelSpan = accessor.GetRowSpan(y);
                     for (int x = 0; x < accessor.Width; x++)
                     {
-                        input[0, 0, x, y] = pixelSpan[x].R;
-                        input[0, 1, x, y] = pixelSpan[x].G;
-                        input[0, 2, x, y] = pixelSpan[x].B;
+                        input[0, 0, x, y] = pixelSpan[x].R / 255f;
+                        input[0, 1, x, y] = pixelSpan[x].G / 255f;
+                        input[0, 2, x, y] = pixelSpan[x].B / 255f;
                     }
                 }
             });

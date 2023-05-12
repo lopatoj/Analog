@@ -34,7 +34,10 @@ namespace Analog.ViewViewModels.Main
 
         public async Task RunInferenceAsync()
         {
-            try
+            var result = await _clockScan.GetClassificationAsync(imgAsBytes);
+            await Application.Current.MainPage.DisplayAlert("Result", result, "OK");
+            
+            /*try
             {
                 var result = await _clockScan.GetFromAPIAsync(imgAsBytes);
                 await Application.Current.MainPage.DisplayAlert("Result", result, "OK");
@@ -43,7 +46,7 @@ namespace Analog.ViewViewModels.Main
             {
                 await Application.Current.MainPage.DisplayAlert("Result", ex.Message, "OK");
                 Console.WriteLine(ex.ToString());
-            }
+            }*/
 
         }
 
